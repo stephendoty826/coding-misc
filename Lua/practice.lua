@@ -17,11 +17,10 @@
 -- --   num3[i] = num1[i] * num2[i]
 -- -- end
 
--- -- the only way (so far) to print to contents of a table is to print them out one at a time
+-- -- the only way (so far) to print the contents of a table is to print them out one at a time
 -- for i=1, #num3 do
 --   print(num3[i])
 -- end
-
 
 
 
@@ -50,28 +49,34 @@
 
 
 
--- 4. De-dup
--- Given a table of numbers or strings, create a new list containing the same elements as the first list, except with any duplicate values removed. Print the list.
+-- -- 4. De-dup
+-- -- Given a table of numbers or strings, create a new list containing the same elements as the first list, except with any duplicate values removed. Print the list.
 
+local num1 = {1, 4, 5, 6, 3, 2, 5, 1, 2, 6, 1, 6}
 
+function dedup(numTable)
+  local cache = {}
 
+  for i=1, #numTable do
 
+    if not cache[numTable[i]] then
+      cache[numTable[i]] = numTable[i]
+    end
 
+  end
 
+  return cache
+end
 
+local results = dedup(num1)
 
--- 5. Leetspeak
--- Given a paragraph of text as a String, print the paragraph in leetspeak.
+for i=1, #results do
+  print(results[i])
+end
 
--- To translate a String to leetspeak, you need to replace make the following character replacements (treat all input characters as uppercase):
+-- -- when local num1 = {1, 4, 5, 6, 3, 2, 5, 1, 2, 6, 1, 6} (it has 1-6), below prints out the keys, values in numerical order) but when local num1 = {1, 4, 5, 6, 2, 5, 1, 2, 6, 1, 6} (just removed the 3), below prints the keys, values in the order they are in the results table. WHY???
+-- for key,value in pairs(results) do
+--   print(key .. ":" .. value)
+-- end
 
--- Letter	Translates To
--- A	4
--- E	3
--- G	6
--- I	1
--- O	0
--- S	5
--- T	7
--- Example: If your program is given the String "I am a leet programmer", it should print "1 4m 4 l337 pr0gr4mm3r" as the leetspeak translation
 
