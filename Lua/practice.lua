@@ -52,31 +52,33 @@
 -- -- 4. De-dup
 -- -- Given a table of numbers or strings, create a new list containing the same elements as the first list, except with any duplicate values removed. Print the list.
 
-local num1 = {1, 4, 5, 6, 3, 2, 5, 1, 2, 6, 1, 6}
+-- local num1 = {1, 4, 5, 6, 2, 5, 1, 2, 6, 1, 6, 3}
 
-function dedup(numTable)
-  local cache = {}
+-- function dedup(numTable)
+--   local cache = {}
 
-  for i=1, #numTable do
+--   for i=1, #numTable do
 
-    if not cache[numTable[i]] then
-      cache[numTable[i]] = numTable[i]
-    end
+--     if not cache[numTable[i]] then
+--       cache[numTable[i]] = numTable[i]
+--     end
 
-  end
+--   end
 
-  return cache
-end
+--   return cache
+-- end
 
-local results = dedup(num1)
+-- local results = dedup(num1)
 
-for i=1, #results do
-  print(results[i])
-end
-
--- -- when local num1 = {1, 4, 5, 6, 3, 2, 5, 1, 2, 6, 1, 6} (it has 1-6), below prints out the keys, values in numerical order) but when local num1 = {1, 4, 5, 6, 2, 5, 1, 2, 6, 1, 6} (just removed the 3), below prints the keys, values in the order they are in the results table. WHY???
+-- -- when local num1 = {1, 4, 5, 6, 2, 5, 1, 2, 6, 1, 6, 3} (it has 1-6), below prints out the keys, values in numerical order) but when local num1 = {1, 4, 5, 6, 2, 5, 1, 2, 6, 1, 6} (just removed the 3), below prints the keys, values in the order they are in the results table. WHY???
 -- for key,value in pairs(results) do
 --   print(key .. ":" .. value)
 -- end
 
 
+
+
+
+-- write a function that loops over the characters in a string and counts the number of times a certain character is found (NOTE: Lua does not have a standard split method on strings...)
+
+-- write a function that loops through the characters in a string and counts how many times each character is found (NOTE: Lua does not have a standard split method on strings...)
