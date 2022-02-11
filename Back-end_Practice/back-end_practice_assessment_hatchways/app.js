@@ -1,6 +1,6 @@
 
 const express = require("express")
-const port = 3000
+const port = 3001
 const data = require("./data.json")
 
 console.log(data.recipes)
