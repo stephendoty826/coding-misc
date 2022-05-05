@@ -25,76 +25,57 @@
  *  - as you loop through the rows, check if matrix is not square, elements are not all positive, and elements are not distinct. Do all of this in one loop through the matrix
  */
 
-//  let matrix3by3 = [ // sums = 15
-//   [2, 7, 6],
-//   [9, 5, 1],
-//   [4, 3, 8],
-// ]
+//todo review online other solutions for this
 
 function IsMagicSquare(matrix) {
-  let distinctCache = {} // used to check if all elements are distinct
-  let firstRowSum // sum with which to compare other sums
-  let diagonalsSummedUp = false // used to ensure diagonals are only summed up the first time through the outer for-loop
+  let firstRowSum
+  let diagonalsSummedUp = false 
+  let firstDiagonalSum = 0
+  let secondDiagonalSum = 0
 
-  for(let i = 0; i < matrix.length; i++){ // start of outer for-loop to drill down 1-dimension
-    let rowSum = 0 // sum to be added up inside of inner for-loop and then added to sumsArr
-    let columnSum = 0 
-    let firstDiagonalSum = 0
-    let secondDiagonalSum = 0
-    let k = matrix.length - 1 // index for use with summing up secondDiagonalSum
+  let isSquareArray = matrix.every(row => row.length === matrix.length)
+  if(!isSquareArray){
+    return false
+  }
 
-    // confirm matrix is a square array
-    if(matrix.length !== matrix[i].length){
+  let flatMatrix = matrix.flat().sort((a, b) => a - b) // checks for distinct and 1 through n^2 elements
+  for(let i = 0; i < flatMatrix.length; i++){
+    if(flatMatrix[i] !== i+1){
       return false
     }
+  }
+
+  for(let rowIndex = 0; rowIndex < matrix.length; rowIndex++){
+    let rowSum = 0
+    let columnSum = 0 
+    let diagonalIndex = matrix.length - 1
     
-    for(let j = 0; j < matrix[i].length; j++){ // start of inner for-loop to drill down to 2-dimensions
+    for(let columnIndex = 0; columnIndex < matrix[rowIndex].length; columnIndex++){
 
-      // confirm all elements are unique
-      let integer = matrix[i][j]
-      if(!distinctCache[integer]){ // if integer does not exist in cache, add to cache
-        distinctCache[integer] = integer // adds integer to cache if it doesn't already exist
+      rowSum += matrix[rowIndex][columnIndex]
 
-        // confirm all elements are positive
-        if(integer <= 0){
-          return false
-        }
-      }
-      else{ // if integer already exists in cache, elements are not distinct...return false
-        return false
-      }
+      columnSum += matrix[columnIndex][rowIndex]
 
-      rowSum += matrix[i][j] // calculates row sum starting from top row and moving down
+      if(!diagonalsSummedUp){
 
-      columnSum += matrix[j][i] // calculates column sum starting from left column and moving right
+        firstDiagonalSum += matrix[columnIndex][columnIndex]
 
-      if(!diagonalsSummedUp){ // ensures diagonals are only summed up the first time through the outer for-loop
+        secondDiagonalSum += matrix[rowIndex][diagonalIndex] 
 
-        firstDiagonalSum += matrix[j][j] // calculates top-left to bottom-right diagonal sum the first time through the outer for-loop
-
-        secondDiagonalSum += matrix[i][k] // calculates top-right to bottom-left diagonal sum the first time through the outer for-loop
-
-        k-- // decrementing k to move from top-right to bottom-left through matrix when calculating secondDiagonalSum
+        diagonalIndex--
       }
 
     } // end of inner for-loop
-
     
-    if(!firstRowSum){ // only assign firstRow to rowSum the first time through the outer loop
+    if(!firstRowSum){
       firstRowSum = rowSum
     }
   
-    switch(firstRowSum){ // confirm sums calculated are equal to first row sum
-      case rowSum:
-      case columnSum:
-      case firstDiagonalSum:
-      case secondDiagonalSum:
-        if(!diagonalsSummedUp){ // ensures the diagonals are only summed up the first time through the outer for-loop
-          diagonalsSummedUp = true
-        }
-        break // all sums calculated this run were equal to firstRowSum
-      default:
-        return false // not all sums calculated this run were equal to firstRowSum
+    if(firstRowSum !== rowSum || firstRowSum !== columnSum || firstRowSum !== firstDiagonalSum || firstRowSum !== secondDiagonalSum){
+      return false
+    }
+    if(!diagonalsSummedUp){
+      diagonalsSummedUp = true
     }
 
   } // end of outer for-loop
@@ -112,16 +93,10 @@ console.log("matrix is empty - expected output: false", IsMagicSquare(matrixEmpt
 
 
 
-// matrix contains strings
-let matrixStrings = [["Hello", "World", "!"], ["Coding", "Is", "Great!"], ["End", "Of", "Line"]]
-console.log("matrix contains strings - expected output: false", IsMagicSquare(matrixStrings), "\n")
-
-
-
 // matrix is not square array
 let matrixNotSquare = [
   [1, 2, 3],
-  [6, 5],
+  [6],
   [3, 4, 5, 6],
 ]
 console.log("matrix is not square array - expected output: false", IsMagicSquare(matrixNotSquare), "\n")
@@ -156,6 +131,23 @@ let matrixSumsNotEqual = [
 ]
 console.log("matrix sums do not equal - expected output: false", IsMagicSquare(matrixSumsNotEqual), "\n")
 
+
+// matrix 1st row and 1st column sums equal but no other sums
+let matrixRow1Col1 = [ // sums = 15
+  [2, 7, 6],
+  [9, 15, 1],
+  [4, 3, 8],
+]
+console.log("matrix Row1 = Col1 but others do not equal - expected output: false", IsMagicSquare(matrixRow1Col1), "\n")
+
+
+// matrix elements are not 1 through n^2
+let matrixNot1ToN2 = [ // sums = 18
+  [3, 8, 7],
+  [10, 6, 2],
+  [5, 4, 9],
+]
+console.log("matrix elements not 1 through n^2 - expected output: false", IsMagicSquare(matrixNot1ToN2), "\n")
 
 
 // matrix is 3x3 magic square 

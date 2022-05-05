@@ -92,7 +92,7 @@ const allPositives = (matrix) => {
   return true // if all integers are positive, return true
 }
 
-
+//todo would need function to ensure elements are 1 through n^2
 
 // function to check if all elements are distinct
 const distinctElements = (matrix) => {
@@ -181,18 +181,17 @@ function checkDiagonalSums(matrix, firstSum){
 let matrixEmpty = [[], [], []]
 console.log("matrix is empty - expected output: false", IsMagicSquare(matrixEmpty), "\n")
 
-// matrix contains strings
-let matrixStrings = [["Hello", "World", "!"], ["Coding", "Is", "Great!"], ["End", "Of", "Line"]]
-console.log("matrix contains strings - expected output: false", IsMagicSquare(matrixStrings), "\n")
+
 
 // matrix is not square array
 let matrixNotSquare = [
   [1, 2, 3],
-  [6, 5],
+  [6],
   [3, 4, 5, 6],
 ]
-
 console.log("matrix is not square array - expected output: false", IsMagicSquare(matrixNotSquare), "\n")
+
+
 
 // matrix contains negative numbers or 0
 let matrixNegative = [
@@ -202,6 +201,8 @@ let matrixNegative = [
 ]
 console.log("matrix contains negative numbers or 0 - expected output: false", IsMagicSquare(matrixNegative), "\n")
 
+
+
 // matrix contains non-distinct elements
 let matrixNotDistinct = [ 
   [9, 7, 6],
@@ -209,6 +210,8 @@ let matrixNotDistinct = [
   [4, 3, 9],
 ]
 console.log("matrix contains non-distinct elements - expected output: false", IsMagicSquare(matrixNotDistinct), "\n")
+
+
 
 // matrix row, column, and diagonal sums do not equal each other
 let matrixSumsNotEqual = [ 
@@ -219,6 +222,24 @@ let matrixSumsNotEqual = [
 console.log("matrix sums do not equal - expected output: false", IsMagicSquare(matrixSumsNotEqual), "\n")
 
 
+// matrix 1st row and 1st column sums equal but no other sums
+let matrixRow1Col1 = [ // sums = 15
+  [2, 7, 6],
+  [9, 15, 1],
+  [4, 3, 8],
+]
+console.log("matrix Row1 = Col1 but others do not equal - expected output: false", IsMagicSquare(matrixRow1Col1), "\n")
+
+
+// matrix elements are not 1 through n^2
+let matrixNot1ToN2 = [ // sums = 18
+  [3, 8, 7],
+  [10, 6, 2],
+  [5, 4, 9],
+]
+console.log("matrix elements not 1 through n^2 - expected output: false", IsMagicSquare(matrixNot1ToN2), "\n")
+
+
 // matrix is 3x3 magic square 
 let matrix3by3 = [ // sums = 15
   [2, 7, 6],
@@ -226,6 +247,8 @@ let matrix3by3 = [ // sums = 15
   [4, 3, 8],
 ]
 console.log("matrix is 3x3 magic square - expected output: true", IsMagicSquare(matrix3by3), "\n")
+
+
 
 // matrix is 4x4 magic square
 let matrix4by4 = [ // sums = 34
@@ -236,6 +259,8 @@ let matrix4by4 = [ // sums = 34
 ]
 console.log("matrix is 4x4 magic square - expected output: true", IsMagicSquare(matrix4by4), "\n")
 
+
+
 // matrix is 5x5 magic square
 let matrix5by5 = [ // sums = 65
   [9, 2, 25, 18, 11],
@@ -245,6 +270,3 @@ let matrix5by5 = [ // sums = 65
   [15, 8, 1, 24, 17]
 ]
 console.log("matrix is 5x5 magic square - expected output: true", IsMagicSquare(matrix5by5), "\n")
-
-
-//todo look up big O and try to figure out what is the big O of this algorithm
