@@ -4,7 +4,7 @@
 
 // ASSUMPTIONS/CLARIFICATIONS
 // string will be given as lowercase
-// characters included in string do not have to be 
+// characters included in string do not have to be letters...?
 
 // TEST CASES (one straightforward, then others and edge cases)
 // deed -> true

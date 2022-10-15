@@ -37,7 +37,9 @@ console.log("", reverse(""))
 
 // with recursion
 function reverseRecursive(string){
-  if(string.length === 0) return ""
+  if(string.length === 0){
+    return ""
+  } 
 
   return reverseRecursive(string.slice(1)) + string[0]
 

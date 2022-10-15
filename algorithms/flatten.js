@@ -68,7 +68,7 @@ const flatten = (arr) => { // [1, [2, [3]], 5]
 // // if loop completes, use .every method to confirm all elements do not have .length >= 0
 // //   if true return flattenedArr
 
-// [1, [2, [3, 4,]], [5, 6], 7]
+// [1, [2, [3, 4]], [5, 6], 7]
     // [5, 6]
 
 // SOLUTION
@@ -77,9 +77,7 @@ const flattenRecursive = (arr) => { // arr = [5, 6]; flattenedArr = [1, 2, 3, 4,
   
   for(const element of arr){ // element = [5, 6]
     if(Array.isArray(element)){ // element.length === 2
-
       flattenedArr = flattenedArr.concat(flattenRecursive(element))
-
     }
     else{
       flattenedArr.push(element) // flattenedArr = [1, 2, 3, 4]
