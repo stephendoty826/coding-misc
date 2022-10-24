@@ -83,3 +83,31 @@ console.log(result)
 
 
 //! NEXT do factorial algorithm with recursion 
+
+
+//* PROBLEM
+// Use recursion. Write a function factorial which accepts a number and returns the factorial of that number. A factorial is the product of an integer and all the integers below it; eg. , factorial four( 4!) is equal to 24, because 4 * 3 * 2 * 1 equals 24. factorial zero (0!) is always 1.
+
+//* CLARIFICATIONS/ASSUMPTIONS
+// Inputs are positive integers
+
+//* GAME PLAN
+// Create function
+// If-statement to stop infinite recursion
+// return num * f(num - 1)
+
+//* SOLUTION
+const getFactorialRecursive = (num) => {
+  // If-statement to stop infinite recursion
+  if(num === 1){
+    return 1
+  }
+
+  // return num * f(num - 1)
+  return num * getFactorialRecursive(num - 1)
+}
+
+let result2 = getFactorialRecursive(5)
+
+console.log(result2)
+
