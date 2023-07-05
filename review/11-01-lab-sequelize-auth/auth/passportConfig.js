@@ -6,7 +6,7 @@ const db = require('../models')
 const init = (passport) => {
   // passport logic here
 
-  // req => passport => protected pages => re.isAuthenticated()
+  // req => passport => protected pages => req.isAuthenticated()
 
   passport.use(new LocalStrategy({usernameField: 'email'}, async (email, password, done)=> {
     try{
