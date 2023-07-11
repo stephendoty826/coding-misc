@@ -59,7 +59,6 @@ const productArr = (arrOfInts) => {
       resultArr.push(suffixProducts[i + 1])
     }
     else if(i === arrOfInts.length - 1){ // [LAST ELEMENT OF ARRAY]
-      console.log(prefixProducts[i - 1])
       resultArr.push(prefixProducts[i - 1])
     }
     else{ // [EVER ELEMENT BUT FIRST AND LAST]
@@ -70,4 +69,4 @@ const productArr = (arrOfInts) => {
   return resultArr
 }
 
-console.log(productArr([1, 2, 3, 4]))
+console.log(productArr([1, 2, 3, 4, 5]))
