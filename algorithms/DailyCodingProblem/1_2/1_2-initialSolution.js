@@ -7,7 +7,7 @@
 // input [3, 7, 5, 6, 9] => output [1, 3] (element positions)
 
 //todo need to track smallest [3, 7, 5, 6, 1]
-//todo what if array has repeating values???
+//todo what if array has repeating values??? Currently repeated values if the largest, moves indexOfLargest which can change startIndex...We don't want this to happen. Once set the startIndex shouldn't change. The algorithm is simply determining how much to the "right" the endIndex needs to be. 
 // GAME PLAN
 // Declare smallestWindowToSort function that accepts arrayOfIntegers
   // Declare startIndex = 0
@@ -34,7 +34,7 @@
 // SOLUTION
 
 // Declare smallestWindowToSort function that accepts arrayOfIntegers
-function smallestWindowToSort(arrayOfIntegers){
+function smallestWindowToSort(arrayOfIntegers){ // [1, 9, 6, 9, 19, 10]
   let startIndex;
   let endIndex;
   let smallestInt = arrayOfIntegers[0];
@@ -48,9 +48,9 @@ function smallestWindowToSort(arrayOfIntegers){
       startIndex = 0
       endIndex = i
     }
-    else if(arrayOfIntegers[i] < largestInt){
-      if(startIndex !== 0){
-        startIndex = indexOfLargestInt
+    else if(arrayOfIntegers[i] < largestInt){ // [4, 3, 5, 6, 7]
+      if(startIndex !== 0){  
+        startIndex = indexOfLargestInt //todo startIndex is being redefined here when 19 comes around
       }
       endIndex = i
     }
@@ -68,8 +68,8 @@ function smallestWindowToSort(arrayOfIntegers){
   return [startIndex, endIndex]
 }
 
-
-let smallestWindow = smallestWindowToSort([1, 9, -6, 4, -8, 10])
+// todo this value doesn't function properly. Find out why and fix the algorithm. 
+let smallestWindow = smallestWindowToSort([1, 9, 6, 9, 19, 10])
 
 console.log(smallestWindow)
 
