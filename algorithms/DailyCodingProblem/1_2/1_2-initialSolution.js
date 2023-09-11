@@ -34,28 +34,36 @@
 // SOLUTION
 
 // Declare smallestWindowToSort function that accepts arrayOfIntegers
-function smallestWindowToSort(arrayOfIntegers){ // [1, 9, 6, 9, 19, 10]
-  let startIndex;
-  let endIndex;
-  let smallestInt = arrayOfIntegers[0];
-  let largestInt = arrayOfIntegers[0];
-  let indexOfLargestInt = 0
+
+//            |
+// [1, 0, 9, -3, 6, 9, 19, 10]
+function smallestWindowToSort(arrayOfIntegers){
+  let startIndex; // 0
+  let endIndex; // 0
+  let smallestInt = arrayOfIntegers[0]; // 1
+  let largestInt = arrayOfIntegers[0]; // 9
+  let indexOfSmallestInt = 0 // 0
+  let indexOfLargestInt = 0 // 1
 
   // Loop through arrayOfIntegers staring from i = 1
   for (let i = 1; i < arrayOfIntegers.length; i++){
-    if(arrayOfIntegers[i] < smallestInt){
-      smallestInt = arrayOfIntegers[i]
+
+    let currentNum = arrayOfIntegers[i] // 6
+
+    if(currentNum < smallestInt){ // false
       startIndex = 0
       endIndex = i
+      smallestInt = currentNum
+      indexOfSmallestInt = i
     }
-    else if(arrayOfIntegers[i] < largestInt){ // [4, 3, 5, 6, 7]
-      if(startIndex !== 0){  
+    else if(currentNum < largestInt){ // true
+      if(startIndex !== 0){ // todo CHECK CONDITION...  
         startIndex = indexOfLargestInt //todo startIndex is being redefined here when 19 comes around
       }
       endIndex = i
     }
     else{
-      largestInt = arrayOfIntegers[i]
+      largestInt = currentNum
       indexOfLargestInt = i
     }
   }
