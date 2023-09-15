@@ -34,38 +34,37 @@
 // SOLUTION
 
 // Declare smallestWindowToSort function that accepts arrayOfIntegers
-
-//            |
+//                      |
 // [1, 0, 9, -3, 6, 9, 19, 10]
 function smallestWindowToSort(arrayOfIntegers){
-  let startIndex; // 0
-  let endIndex; // 0
+  let startIndex;
+  let endIndex;
   let smallestInt = arrayOfIntegers[0]; // 1
-  let largestInt = arrayOfIntegers[0]; // 9
-  let indexOfSmallestInt = 0 // 0
-  let indexOfLargestInt = 0 // 1
+  let largestInt = arrayOfIntegers[0]; // 1
+  // let indexOfSmallestInt = 0 
+  let indexOfLargestInt = 0 // 0
 
   // Loop through arrayOfIntegers staring from i = 1
-  for (let i = 1; i < arrayOfIntegers.length; i++){
+  for (let i = 1; i < arrayOfIntegers.length; i++){ 
 
-    let currentNum = arrayOfIntegers[i] // 6
+    let currentNum = arrayOfIntegers[i] // 10
 
-    if(currentNum < smallestInt){ // false
-      startIndex = 0
-      endIndex = i
-      smallestInt = currentNum
-      indexOfSmallestInt = i
+    if(currentNum < smallestInt){ // is 10 < -3 returns false
+      startIndex = 0 
+      endIndex = i // 3
+      smallestInt = currentNum // -3
+      // indexOfSmallestInt = i
     }
-    else if(currentNum < largestInt){ // true
-      if(startIndex !== 0){ // todo CHECK CONDITION...  
-        startIndex = indexOfLargestInt //todo startIndex is being redefined here when 19 comes around
+    else if(currentNum < largestInt){ // is 10 < 19 returns true
+      if(startIndex === undefined){ 
+        startIndex = indexOfLargestInt // startIndex = 
       }
-      endIndex = i
+      endIndex = i // 7
     }
     else{
-      largestInt = currentNum
-      indexOfLargestInt = i
-    }
+      largestInt = currentNum // largestInt = 19
+      indexOfLargestInt = i // 6
+    } 
   }
 
   // if startIndex and endIndex are never set because the array is already ordered. 
@@ -77,7 +76,7 @@ function smallestWindowToSort(arrayOfIntegers){
 }
 
 // todo this value doesn't function properly. Find out why and fix the algorithm. 
-let smallestWindow = smallestWindowToSort([1, 9, 6, 9, 19, 10])
+let smallestWindow = smallestWindowToSort([4, -6, 0, 5, 11, 12, 10, -17, 306, 450])
 
 console.log(smallestWindow)
 
