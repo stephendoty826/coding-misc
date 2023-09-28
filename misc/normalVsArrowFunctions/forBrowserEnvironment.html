@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  Differences between normal functions and arrow functions (see script tag and browser console)
+  <script>
+    
+
+
+    
+  // DIFFERENCES BETWEEN NORMAL FUNCTIONS AND ARROW FUNCTIONS
+
+
+
+
+  // 1. Arrow functions can be written on one line with an implicit return
+    function normalAdd(num1, num2){
+      return num1 + num2;
+    }
+
+    // same function can be written on one line as an arrow function
+    const arrowAdd = (num1, num2) => num1 + num2;
+
+
+
+
+
+  // 2. Arrow functions have no arguments object passed to them. 
+    // arguments parameter is passed to normal functions
+    function normalPrint(){
+      console.log(arguments);
+    }
+    normalPrint(1, 10, "something", []) // prints array of arguments to the console
+
+    // arguments parameter is not passed to arrow functions
+    const arrowPrint = () => {
+      console.log(arguments);
+    }
+    // arrowPrint(1, 10, "something", []) // we get an error saying "arguments is not defined"
+
+
+
+
+
+  // 3. Arrow functions do not create their own "this" binding
+    // normal functions DO automatically create a "this" variable which references the object that calls that function
+    const obj = {
+      name: "obj",
+      age: 14,
+      print: function(){
+        console.log(this)  
+      }
+    }
+    obj.print(); // "this" refers to the object that called this function
+
+    const obj2 = {
+      name: "obj2",
+      age: 54, 
+      print: function() {
+        function print2() {
+          console.log(this); 
+        }
+        print2(); 
+      }
+    }
+    obj2.print(); // since no object called print2(), "this" refers to the window object by default
+
+    // arrow functions DO NOT automatically create a "this" binding, so accessing "this" in such functions would reference the inherited "this" from the parent scope
+
+    const obj3 = {
+      name: "obj3",
+      age: 32,
+      print: () => {
+        console.log(this);
+      }
+    }
+
+    obj3.print(); // "this" refers to the "this" from the parent scope which in this case is the window object
+
+    const obj4 = {
+      name: "obj2",
+      age: 54, 
+      print: function() {
+        const print2 = () => {
+          console.log(this); 
+        }
+        print2(); // since arrow functions do not create their own "this" binding, the "this" here is inherited from the print function above and so "this" refers to obj4
+      }
+    }
+    obj4.print();
+
+
+
+
+
+  // 4. Arrow functions cannot be used as constructors
+    // constructors serve as special functions for instantiating objects from classes
+    class Animal{
+      constructor(name, numOfLegs){ // uses a normal function as the constructor
+      // constructor = (name, numOfLegs)=> { // gives an error saying "Classes may not have a field named 'construtor' "
+        this.name = name;
+        this.numOfLegs = numOfLegs;
+      }
+      // sayName() { // sayName can be a normal function
+      sayName = () => { // sayName can also be a arrow function
+        console.log(`My name is ${this.name}`);
+      }
+    } 
+
+    const Dog = new Animal("Bingo", 4);
+
+    const Bird = new Animal("Steer", 2);
+    Dog.sayName();
+    Bird.sayName();
+
+
+
+
+  // 5. Arrow functions cannot be declared
+    // declared function using normal functions
+    function printHello(){ // this is a function declaration
+      console.log("hello");
+    }
+
+    // function expression using normal function
+    const printHello2 = function(){ // this is a function expression
+      console.log('hello');
+    }
+
+    // function expresssion using arrow function --- arrow functions are function expresssions which you need to assign to a variable in you want use the function later in your code
+    const printHello3 = () => { // this is a function expression
+      console.log('hello');
+    }
+
+
+  // 6. Arrow functions cannot be accessed before initialization
+    // Hoisting is a concept where a function or variable is lifted to the top of the scope it is defined in
+
+    printName();
+    
+    console.log("jello");
+
+    function printName(){ // function declarations are hoisted along with the function logic
+      console.log("Hello my name is Stephen");
+    }
+
+    // printName2();
+
+    console.log("jello again");
+
+    // const printName2 = function() { // using "const" or "let", printName2 is hoisted but not initialized (initialized is setting the value equal to the function expression)
+    // const printName2 = () => { // using "const" or "let", printName2 is hoisted but not initialized (initialized is setting the value equal to the function expression)
+    //   console.log("Hello my name is Bartholomew")
+    // }
+
+    console.log(printName3);
+    printName3();
+
+    console.log("well hi")
+
+    var printName3 = () => { // using "var", printName2 is hoisted an assigned an initial value of  undefined
+      console.log("Hello my name is Bartholomew")
+    }
+
+  </script>
+</body>
+</html>
