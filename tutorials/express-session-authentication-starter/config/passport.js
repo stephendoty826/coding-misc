@@ -36,10 +36,12 @@ const strategy = new LocalStrategy(customFields, verifyCallback);
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
+  console.log("user serialized: userId added to req.session")
   done(null, user.id);
 });
 
 passport.deserializeUser((userId, done) => {
+  console.log("user deserialized: user added to req.user")
   User.findById(userId)
     .then(user => {
       done(null, user);

@@ -9,11 +9,6 @@ const connection = require('./config/database');
 // Package documentation - https://www.npmjs.com/package/connect-mongo
 const MongoStore = require('connect-mongo')(session);
 
-// Need to require the entire Passport config module so app.js knows about it
-require('./config/passport');
-
-
-
 /**
  * -------------- GENERAL SETUP ----------------
  */
@@ -24,12 +19,9 @@ require('dotenv').config();
 // Create the Express application
 var app = express();
 
-app.use(passport.initialize());
-app.use(passport.session());
-
+// body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 
 /**
  * -------------- SESSION SETUP ----------------
@@ -51,8 +43,18 @@ app.use(session({
  * -------------- PASSPORT AUTHENTICATION ----------------
  */
 
+// Need to require the entire Passport config module so app.js knows about it
+require('./config/passport');
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+// custom middleware
+app.use((req, res, next) => {
+  console.log(req.session);
+  console.log(req.user);
+  next();
+})
 
 
 /**
