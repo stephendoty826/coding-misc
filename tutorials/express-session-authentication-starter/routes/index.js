@@ -26,7 +26,7 @@ router.post('/register', (req, res, next) => {
         username: req.body.uname,
         hash,
         salt,
-        admin: true
+        // admin: true // used only if you have different types of users
     })
 
     newUser.save()
@@ -101,8 +101,13 @@ router.get('/admin-route', isAdmin, (req, res, next) => {
 
 // Visiting this route logs the user out
 router.get('/logout', (req, res, next) => {
-    req.logout();
-    res.redirect('/protected-route');
+
+    // req.logout()
+    req.logout(()=> {
+        console.log("logout successful")
+    });
+
+    res.redirect("/login")
 });
 
 router.get('/login-success', (req, res, next) => {
