@@ -1,5 +1,12 @@
 import "./styles.css";
+import PostsList from "./features/posts/PostsList";
+import AddPostForm from "./features/posts/AddPostForm";
 
 export default function App() {
-  return <div></div>;
+  return (
+    <main className="App">
+      <AddPostForm/>
+      <PostsList/>
+    </main>
+  )
 }
