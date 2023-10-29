@@ -1,27 +1,50 @@
 
 
-text = """3 love
-6 computers
-2 dogs
-4 cats
-1 I
-5 you"""
+def decode(message_file):
 
-# put text into list and sort it
-text_list = sorted(text.split("\n")) # [['1 I'], ['2 dogs'], ['3 love'], ['4 cats'], ['5 you'], ['6 computers']]
+  # opens messge_file.txt in read mode
+  with open(f'./{message_file}', "r") as opened_file:
 
-#? use two variables start and end both with differing sequences to get desired list of lists
+    # reads file contents 
+    text = opened_file.read()
 
-start = 0
+    # put text into list
+    text_list = text.split("\n") # output -> ['1 I', '2 dogs', '3 love', '4 cats', '5 you', '6 computers']
 
-phrase_list = []
+    # sorts the list in place
+    text_list.sort() #todo phrase list is being sorted in order this 1, 10, 100, 101
 
-for i, phrase in enumerate(text_list): # third iteration: i = 2, start = 3, end = 6
-  end = start + (i + 1)
-  if(end < len(text_list) + 1):
-    phrase_list.append(text_list[start:end])
-    
-  start += (i + 1)
 
-print(phrase_list)
 
+    # building a list to mimic the pyramid. Top layer is first, second layer second and so on
+    startIndex = 0 
+
+    # empty list to be filled in below for-loop
+    phrase_list = []
+
+    # using for-loop to iterate over text_list and put together the pyramid i.e [ ['1 I'], ['2 dogs', '3 love'], ['4 cats', '5, you', '6, computers'] ]
+    for i, phrase in enumerate(text_list): 
+
+      endIndex = startIndex + (i + 1)
+
+      # breaks out of for-loop when out of elements in text_list
+      if(endIndex > len(text_list)): 
+        break
+
+      # appends shallow copy of text_list to phrase_list 
+      phrase_list.append(text_list[startIndex:endIndex])
+        
+      startIndex += (i + 1)
+
+    print(phrase_list)
+
+    decoded_message = ""
+
+    # for-loop to build decoded_message
+    for phrase in phrase_list:
+      # adds the last word of each list to decoded_message string
+      decoded_message += (phrase[-1][2:] + " ")
+
+    return decoded_message
+
+print(decode("coding_qual_input.txt"))
