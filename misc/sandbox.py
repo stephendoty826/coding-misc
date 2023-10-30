@@ -1,5 +1,7 @@
 
-def printName(name):
-  print(f"My name is {name}")
+list = ["1 dog", "205 cat", "30 something"]
 
-printName('jed')
+list2 = list[0].split(' ')
+
+for num in range(len(list)):
+  print(num)

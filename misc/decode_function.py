@@ -2,49 +2,72 @@
 
 def decode(message_file):
 
-  # opens messge_file.txt in read mode
+  # opens message_file.txt in read mode - Note: if the file is in a different folder, the path provided here will need to be updated accordingly.
   with open(f'./{message_file}', "r") as opened_file:
 
     # reads file contents 
     text = opened_file.read()
 
-    # put text into list
+    # put text into list split on the new line character
     text_list = text.split("\n") # output -> ['1 I', '2 dogs', '3 love', '4 cats', '5 you', '6 computers']
 
-    # sorts the list in place
-    text_list.sort() #todo phrase list is being sorted in order this 1, 10, 100, 101
 
-
-
-    # building a list to mimic the pyramid. Top layer is first, second layer second and so on
-    startIndex = 0 
 
     # empty list to be filled in below for-loop
-    phrase_list = []
+    phrase_dict = {}
 
-    # using for-loop to iterate over text_list and put together the pyramid i.e [ ['1 I'], ['2 dogs', '3 love'], ['4 cats', '5, you', '6, computers'] ]
-    for i, phrase in enumerate(text_list): 
+    # using for-loop to fill phrase_dict - i.e. {1: "dog", 2: "cat", 3: "hamster"}
+    for phrase in text_list:
 
-      endIndex = startIndex + (i + 1)
+      # splits the phrase on the " "
+      split_phrase = phrase.split(' ')
 
-      # breaks out of for-loop when out of elements in text_list
-      if(endIndex > len(text_list)): 
-        break
+      num = int(split_phrase[0])
 
-      # appends shallow copy of text_list to phrase_list 
-      phrase_list.append(text_list[startIndex:endIndex])
-        
-      startIndex += (i + 1)
+      text = split_phrase[1]
 
-    print(phrase_list)
+      phrase_dict[num] = text
 
-    decoded_message = ""
+
+
+    message = ""
+
+    decode_key = 0
 
     # for-loop to build decoded_message
-    for phrase in phrase_list:
-      # adds the last word of each list to decoded_message string
-      decoded_message += (phrase[-1][2:] + " ")
+    for num in range(len(phrase_dict)):
+      # decode_key follows the pyramid pattern 1, 3, 6, 10, 15... 
+      decode_key = decode_key + (num + 1)
 
-    return decoded_message
+      # ensures no KeyError occurs 
+      if(decode_key > len(phrase_dict)): 
+        break
+
+      # adds each phrase to message along with a space
+      message += (phrase_dict[decode_key] + " ")
+      
+    return message
+
+# print(decode('message_file.txt'))
 
 print(decode("coding_qual_input.txt"))
+
+
+
+
+
+
+
+
+# for i, phrase in enumerate(text_list): 
+
+#   endIndex = startIndex + (i + 1)
+
+#   # breaks out of for-loop when out of elements in text_list
+#   if(endIndex > len(text_list)): 
+#     break
+
+#   # appends shallow copy of text_list to phrase_list 
+#   phrase_list.append(text_list[startIndex:endIndex])
+    
+#   startIndex += (i + 1)
